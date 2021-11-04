@@ -1,0 +1,15 @@
+FW1
+
+Pour la règle 5, je pense qu'il manque un P au commentaire : SMT -> SMTP
+
+Pour la règle 9, je comprends pas j'ai l'impression que la règle 11 suffit comme on est en stateful.
+idem pour 17, 18, 20, et 21
+
+Pour la règle 11, je pense qu'il faut ajouter une autre même règle avec TCP comme protocole pcq DNS fonctionne aussi sous TCP
+idem pour les autres règles qui concernent DNS (FW1 et FW2)
+
+FW2
+
+Pour les règles 7 et 10, je crois qu'on peut juste avoir la règle 10 à laquelle on remplace source port par any vu qu'on est en stateful
+idem pour 18 et 21
+
