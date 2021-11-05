@@ -1,0 +1,80 @@
+\documentclass[a4paper, 11pt, oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{fullpage}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{float}
+\usepackage{titling}
+\usepackage[table,xcdraw]{xcolor}
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+
+\newcommand{\ClassName}{INFO-0045: Introduction to Computer Security}
+\newcommand{\ProjectName}{Project 1 - Firewalls\\Part 2 - High-Level Rules}
+\newcommand{\AcademicYear}{2021 - 2022}
+
+%%%% First page settings %%%%
+
+\title{\ClassName\\\vspace*{0.8cm}\ProjectName\vspace{1cm}}
+\author{Maxime Goffart \\180521 \and Olivier Joris\\182113}
+\date{\vspace{1cm}Academic year \AcademicYear}
+
+\begin{document}
+
+%%% First page %%%
+
+\begin{titlingpage}
+{\let\newpage\relax\maketitle}
+\end{titlingpage}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Firewall 3}
+
+\begin{table}[H]
+  \begin{tabular}{|llllllll|}
+
+  \hline
+  \multicolumn{1}{|l|}{\textbf{\#}} & \multicolumn{1}{l|}{\textbf{Source}} & \multicolumn{1}{l|}{\textbf{SP}} & \multicolumn{1}{l|}{\textbf{Destination}} & \multicolumn{1}{l|}{\textbf{DP}} & \multicolumn{1}{l|}{\textbf{Protocol}} & \multicolumn{1}{l|}{\textbf{Action}} & \textbf{Comments}   \\ \hline
+                                    &                                      &                                  &                                           & {\color[HTML]{FE0000} z-nfs in}  &                                        &                                      &                     \\ \hline
+  \multicolumn{1}{|l|}{1}           & \multicolumn{1}{l|}{192.168.3.2}     & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.3.2}            & \multicolumn{1}{l|}{111}         & \multicolumn{1}{l|}{TCP}               & \multicolumn{1}{l|}{allow}           & HONEYPOT to NFS     \\ \hline
+  \multicolumn{1}{|l|}{2}           & \multicolumn{1}{l|}{192.168.3.2}     & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.3.2}            & \multicolumn{1}{l|}{111}         & \multicolumn{1}{l|}{UDP}               & \multicolumn{1}{l|}{allow}           & HONEYPOT to NFS     \\ \hline
+  \multicolumn{1}{|l|}{3}          & \multicolumn{1}{l|}{192.168.3.2}     & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.3.2}            & \multicolumn{1}{l|}{2046}        & \multicolumn{1}{l|}{TCP}               & \multicolumn{1}{l|}{allow}           & HONEYPOT to NFS     \\ \hline
+  \multicolumn{1}{|l|}{4}          & \multicolumn{1}{l|}{192.168.3.2}     & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.3.2}            & \multicolumn{1}{l|}{2046}        & \multicolumn{1}{l|}{UDP}               & \multicolumn{1}{l|}{allow}           & HONEYPOT to NFS     \\ \hline
+  \multicolumn{1}{|l|}{5}          & \multicolumn{1}{l|}{192.168.3.2}     & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.3.2}            & \multicolumn{1}{l|}{2047}        & \multicolumn{1}{l|}{TCP}               & \multicolumn{1}{l|}{allow}           & HONEYPOT to NFS     \\ \hline
+  \multicolumn{1}{|l|}{6}          & \multicolumn{1}{l|}{192.168.3.2}     & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.3.2}            & \multicolumn{1}{l|}{2047}        & \multicolumn{1}{l|}{UDP}               & \multicolumn{1}{l|}{allow}           & HONEYPOT to NFS     \\ \hline
+  \multicolumn{1}{|l|}{7}          & \multicolumn{1}{l|}{192.168.3.2}     & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.3.2}            & \multicolumn{1}{l|}{2048}        & \multicolumn{1}{l|}{TCP}               & \multicolumn{1}{l|}{allow}           & HONEYPOT to NFS     \\ \hline
+  \multicolumn{1}{|l|}{8}          & \multicolumn{1}{l|}{192.168.3.2}     & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.3.2}            & \multicolumn{1}{l|}{2048}        & \multicolumn{1}{l|}{UDP}               & \multicolumn{1}{l|}{allow}           & HONEYPOT to NFS     \\ \hline
+  \multicolumn{1}{|l|}{9}          & \multicolumn{1}{l|}{192.168.3.2}     & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.3.2}            & \multicolumn{1}{l|}{2049}        & \multicolumn{1}{l|}{TCP}               & \multicolumn{1}{l|}{allow}           & HONEYPOT to NFS     \\ \hline
+  \multicolumn{1}{|l|}{10}          & \multicolumn{1}{l|}{192.168.3.2}     & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.3.2}            & \multicolumn{1}{l|}{2049}        & \multicolumn{1}{l|}{UDP}               & \multicolumn{1}{l|}{allow}           & HONEYPOT to NFS     \\ \hline
+  \multicolumn{1}{|l|}{11}          & \multicolumn{1}{l|}{192.168.3.3}     & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.3.3}            & \multicolumn{1}{l|}{873}         & \multicolumn{1}{l|}{TCP}               & \multicolumn{1}{l|}{allow}           & U3 to RSYNC         \\ \hline
+  \multicolumn{1}{|l|}{12}           & \multicolumn{1}{l|}{10.10.4.6}       & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.3.3}            & \multicolumn{1}{l|}{22}          & \multicolumn{1}{l|}{TCP}               & \multicolumn{1}{l|}{allow}           & SSH to RSYNC        \\ \hline
+  \multicolumn{1}{|l|}{13}           & \multicolumn{1}{l|}{*}               & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.3.0/24}         & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{*}                 & \multicolumn{1}{l|}{log and drop}            & drop others inputs  \\ \hline
+                                    &                                      &                                  &                                           & {\color[HTML]{FE0000} z-nfs out} &                                        &                                      &                     \\ \hline
+  \multicolumn{1}{|l|}{14}           & \multicolumn{1}{l|}{10.10.3.0/24}    & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{*}                    & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{*}                 & \multicolumn{1}{l|}{log and drop}            & drop others outputs \\ \hline
+                                    &                                      &                                  &                                           & {\color[HTML]{FE0000} z-u3 in}   &                                        &                                      &                     \\ \hline
+  \multicolumn{1}{|l|}{15}           & \multicolumn{1}{l|}{10.10.4.6}       & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{192.168.3.2}          & \multicolumn{1}{l|}{22}          & \multicolumn{1}{l|}{TCP}               & \multicolumn{1}{l|}{allow}           & SSH to HONEYPOT     \\ \hline
+  \multicolumn{1}{|l|}{16}           & \multicolumn{1}{l|}{*}               & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{192.168.3.0/24}       & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{*}                 & \multicolumn{1}{l|}{log and drop}            & drop other inputs   \\ \hline
+                                    &                                      &                                  &                                           & {\color[HTML]{FE0000} z-u3 out}  &                                        &                                      &                     \\ \hline
+  \multicolumn{1}{|l|}{17}          & \multicolumn{1}{l|}{192.168.3.3}  & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.4.6}                    & \multicolumn{1}{l|}{22}           & \multicolumn{1}{l|}{TCP}                 & \multicolumn{1}{l|}{allow}            & U3 to SSH \\ \hline
+  \multicolumn{1}{|l|}{18}          & \multicolumn{1}{l|}{192.168.3.0/24}  & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{*}                    & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{*}                 & \multicolumn{1}{l|}{log and drop}            & drop others outputs \\ \hline
+                                    &                                      &                                  &                                           & {\color[HTML]{FE0000} z-ssh in}  &                                        &                                      &                     \\ \hline
+  \multicolumn{1}{|l|}{19}          & \multicolumn{1}{l|}{*}               & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{10.10.4.0/24}         & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{*}                 & \multicolumn{1}{l|}{log and drop}            & drop others inputs  \\ \hline
+                                    &                                      &                                  &                                           & {\color[HTML]{FE0000} z-ssh out} &                                        &                                      &                     \\ \hline
+  \multicolumn{1}{|l|}{20}          & \multicolumn{1}{l|}{10.10.4.0/24}    & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{*}                    & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{*}                 & \multicolumn{1}{l|}{log and drop}            & drop others outputs \\ \hline
+                                    &                                      &                                  &                                           & {\color[HTML]{FE0000} default}   &                                        &                                      &                     \\ \hline
+  \multicolumn{1}{|l|}{21}          & \multicolumn{1}{l|}{*}               & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{*}                    & \multicolumn{1}{l|}{*}           & \multicolumn{1}{l|}{*}                 & \multicolumn{1}{l|}{log and drop}    & default rule        \\ \hline
+  
+  \end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
