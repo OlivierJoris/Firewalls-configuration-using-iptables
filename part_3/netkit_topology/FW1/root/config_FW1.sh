@@ -7,6 +7,11 @@ iptables -t nat -A PREROUTING -p tcp -d 172.32.4.100 --dport 22 -j DNAT --to-des
 iptables -t nat -A PREROUTING -p tcp -d 172.32.4.100 --dport 25 -j DNAT --to-destination 172.31.6.5:25
 # IMAPS
 iptables -t nat -A PREROUTING -p tcp -d 172.32.4.100 --dport 993 -j DNAT --to-destination 172.31.6.5:993
+# Allowing webteam to reach ssh in PWEB through SSH relay
+iptables -t nat -A POSTROUTING -p tcp -s 172.31.6.6 -d 172.32.5.2 --dport 22 -j SNAT --to-source 172.32.4.100:22222
+# Allowing access to web pages of PWEB to internal network.
+iptables -t nat -A POSTROUTING -p tcp -s 172.31.5.4 -d 172.32.5.2 --dport 80 -j SNAT --to-source 172.32.4.100:8080
+iptables -t nat -A POSTROUTING -p tcp -s 172.31.5.4 -d 172.32.5.2 --dport 443 -j SNAT --to-source 172.32.4.100:4430
 # POSTROUTING
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
