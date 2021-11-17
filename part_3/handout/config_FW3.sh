@@ -56,7 +56,7 @@ iptables -A FORWARD -d 192.168.3.0/24 -j DROP
 ## Outgoing traffic z-u3
 
 # 18. U3 to SSH
-iptables -A FORWARD -s 192.168.3.3 -d 192.168.3.0/24 -p tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT
+iptables -A FORWARD -s 192.168.3.3 -d 10.10.4.6 -p tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT
 # 19. output deny
 iptables -A FORWARD -s 192.168.3.0/24 -j LOG --log-prefix "fw3 - block out z-u3"
 iptables -A FORWARD -s 192.168.3.0/24 -j DROP
