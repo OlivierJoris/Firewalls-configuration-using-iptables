@@ -25,6 +25,8 @@ iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
 # Now, let us accept the desired traffic.
 
+## Incoming traffic z-mail-ssh
+
 # 1) Internet -> IMAPS
 iptables -A FORWARD -p tcp -d 172.31.6.5 --dport 993 -m conntrack --ctstate NEW -j ACCEPT
 
@@ -38,6 +40,8 @@ iptables -A FORWARD -p tcp -d 172.31.6.6 --dport 22 -m conntrack --ctstate NEW -
 iptables -A FORWARD -d 172.31.6.0/24 -j LOG --log-prefix "fw1 - block in z-mail-ssh"
 iptables -A FORWARD -d 172.31.6.0/24 -j DROP
 
+## Outgoing traffic z-mail-ssh
+
 # 5) SSH -> Internet
 iptables -A FORWARD -p tcp -s 172.31.6.6 --dport 22 -m conntrack --ctstate NEW -j ACCEPT
 
@@ -48,9 +52,13 @@ iptables -A FORWARD -p tcp -s 172.31.6.5 --dport 25 -m conntrack --ctstate NEW -
 iptables -A FORWARD -s 172.31.6.0/24 -j LOG --log-prefix "fw1 - block out z-mail-ssh"
 iptables -A FORWARD -s 172.31.6.0/24 -j DROP
 
+## Incoming traffic z-http
+
 #8) Deny in z-http
 iptables -A FORWARD -d 172.31.5.0/24 -j LOG --log-prefix "fw1 - block in z-http"
 iptables -A FORWARD -d 172.31.5.0/24 -j DROP
+
+## Outgoing traffic z-http
 
 # 9) LDNS -> Internet over TCP
 iptables -A FORWARD -p tcp -s 172.31.5.3 --dport 53 -m conntrack --ctstate NEW -j ACCEPT
@@ -67,6 +75,8 @@ iptables -A FORWARD -p tcp -s 172.31.5.4 --dport 443 -m conntrack --ctstate NEW 
 # 13) Deny out z-http
 iptables -A FORWARD -s 172.31.5.0/24 -j LOG --log-prefix "fw1 - block out z-http"
 iptables -A FORWARD -s 172.31.5.0/24 -j DROP
+
+## Incoming traffic z-public
 
 # 14) Internet -> PWEB over HTTP
 iptables -A FORWARD -p tcp -d 172.32.5.2 --dport 80 -m conntrack --ctstate NEW -j ACCEPT
@@ -87,6 +97,8 @@ iptables -A FORWARD -p udp -d 172.32.5.3 --dport 53 -m conntrack --ctstate NEW -
 iptables -A FORWARD -d 172.32.5.0/24 -j LOG --log-prefix "fw1 - block in z-public"
 iptables -A FORWARD -d 172.32.5.0/24 -j DROP
 
+## Outgoing traffic z-public
+
 # 20) PDNS to Internet over tcp
 iptables -A FORWARD -p tcp -s 172.32.5.3 --dport 53 -m conntrack --ctstate NEW -j ACCEPT
 
@@ -96,6 +108,8 @@ iptables -A FORWARD -p udp -s 172.32.5.3 --dport 53 -m conntrack --ctstate NEW -
 # 22) Deny out z-public
 iptables -A FORWARD -s 172.32.5.0/24 -j LOG --log-prefix "fw1 - block out z-public"
 iptables -A FORWARD -s 172.32.5.0/24 -j DROP
+
+## Other
 
 # 23) Log & deny everything by default
 iptables -A FORWARD -j LOG --log-prefix "fw1 - deny any other forward"
