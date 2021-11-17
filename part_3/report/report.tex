@@ -1,0 +1,78 @@
+\documentclass[a4paper, 11pt, oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{fullpage}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{titling}
+\usepackage[table,xcdraw]{xcolor}
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+
+\newcommand{\ClassName}{INFO-0045: Introduction to Computer Security}
+\newcommand{\ProjectName}{Project 1 - Firewalls\\Part 3 - iptables Rules}
+\newcommand{\AcademicYear}{2021 - 2022}
+
+%%%% First page settings %%%%
+
+\title{\ClassName\\\vspace*{0.8cm}\ProjectName\vspace{1cm}}
+\author{Maxime Goffart \\180521 \and Olivier Joris\\182113}
+\date{\vspace{1cm}Academic year \AcademicYear}
+
+\begin{document}
+
+%%% First page %%%
+
+\begin{titlingpage}
+{\let\newpage\relax\maketitle}
+\end{titlingpage}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Implementation of the rules}
+
+\subsection{NAT rules}
+
+\paragraph{}We implemented rules concerning incoming traffic (SSH, SMTP, or IMAPS) using the \texttt{PREROUTING} chain and the \texttt{DNAT} target (static NAT).
+
+\paragraph{}We implemented rules concerning traffic staying inside the network (SSH relay and PWEB) using the \texttt{POSTROUTING} chain and the \texttt{SNAT} target (static NAT).
+
+\paragraph{}We implemented rules concerning outgoing traffic using the \texttt{POSTROUTING} chain and the \texttt{MASQUERADE} target (dynamic NAT).
+
+\subsection{Firewall rules}
+
+\paragraph{}Because the firewalls are not source or destination of packets exchange in the network, we decided to adopt a policy dropping traffic related to \texttt{INPUT} and \texttt{OUTPUT} chains. Our implementented rules thus only deal with the \texttt{FORWARD} chain.
+
+\paragraph{}Because we wanted that our firewalls act as stateful firewalls, we needed to allow traffic related to accepted connection using this command : \texttt{iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT}.
+
+\paragraph{}The commands implementing our firewall rules all follow a same scheme : \texttt{iptables -A FORWARD -p protocol [-d destination-ip] [-s source-ip] --dport destination-port -m conntrack --ctstate NEW -j <ACCEPT | DROP | LOG>}. These rules are implemented in their priority orders because we used the \texttt{-A} option. 
+
+\section{Performed tests}
+
+We tested to the maximum the behavior of our firewalls to see if our implementation does not contain any issue. It is more difficult to see if there are no problems with what is not allowed than with what is allowed. It is why last firewall rules are there : they deny by default. The test we have done are listed below.
+
+\begin{itemize}
+    \item We tested that \texttt{HONEYPOT} can share the \texttt{/home/sharing} directory with the \texttt{NFS} server.
+    \item We tested that \texttt{U3} can synchronize files with the \texttt{RSYNC} server on the Vlad account (including through the \texttt{SSH} relay which implies secured \texttt{RSYNC}).
+    \item We tested that \texttt{HONEYPOT} is reachable through the \texttt{SSH} relay.
+    \item We tested that \texttt{U1} and \texttt{U2} can obtain one IP address through their respective \texttt{DHCP} relays.
+    \item We tested that \texttt{U1} can access \texttt{LWEB} using the ftp and http protocol.
+    \item We tested that \texttt{U2} can access \texttt{LWEB} using the http protocol.
+    \item We tested that \texttt{U1} and \texttt{U2} are reachable using the \texttt{SSH} relay.
+    \item We tested that \texttt{U1} and \texttt{U2} can perform http(s) requests through the http(s) proxy. We also did some http(s) request using domain name to test the requests to \texttt{LDNS} and \texttt{PDNS}.
+    \item We tested that \texttt{U1} and \texttt{U2} can send mails inside and outside the network.
+    \item We tested that \texttt{U1} can connect to the \texttt{SSH} relay and not \texttt{U2}.
+    \item We tested that \texttt{DT} can connect to the \texttt{SSH} relay and it is reachable through the \texttt{SSH} relay.
+    \item We tested that \texttt{DT} can acces to \texttt{PWEB} using the http and https protocols and domain names (\texttt{PDNS}).
+    \item We tested that \texttt{PWEB} is reachable from the \texttt{SSH} relay.
+\end{itemize}
+
+\end{document}

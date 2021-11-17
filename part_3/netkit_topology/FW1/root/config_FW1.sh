@@ -12,7 +12,7 @@ iptables -t nat -A POSTROUTING -p tcp -s 172.31.6.6 -d 172.32.5.2 --dport 22 -j 
 # Allowing access to web pages of PWEB to internal network.
 iptables -t nat -A POSTROUTING -p tcp -s 172.31.5.4 -d 172.32.5.2 --dport 80 -j SNAT --to-source 172.32.4.100:8080
 iptables -t nat -A POSTROUTING -p tcp -s 172.31.5.4 -d 172.32.5.2 --dport 443 -j SNAT --to-source 172.32.4.100:4430
-# POSTROUTING
+# dynamic POSTROUTING
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
 # Now, let us configure the filtering.
