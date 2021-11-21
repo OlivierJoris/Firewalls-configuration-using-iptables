@@ -122,7 +122,7 @@ U3> ssh DT
 \begin{lstlisting}
 U1> su - webteam
 U1> vi text.txt # can add anything inside the file
-U1> scp text.txt PWEB:/home/webteam
+U1> scp text.txt PWEB:/home/webteam/
 -----
 PWEB> su - webteam
 PWEB> ls
@@ -151,6 +151,8 @@ DT> mutt
 \begin{lstlisting}
 U3> su - vlad
 U3> rsync -v Documents/opportunity.txt vlad@10.10.3.3::backup_vlad
+# If we want to use secured RSYNC
+U3> rsync -v Documents/opportunity.txt vlad@10.10.3.3:/home/vlad/
 \end{lstlisting}
 
 \section{NFS}
